@@ -56,7 +56,7 @@ CREATE TABLE contacts (
   email VARCHAR(100)
 );
 ```
-###4. Configure db.js
+### 4. Configure db.js
 ```
 Edit db.js and update with your MySQL credentials:
 
@@ -68,7 +68,7 @@ const db = mysql.createConnection({
 });
 ```
 
-###5. Run the App
+### 5. Run the App
 ```bash
 node server.js
 ```
