@@ -72,3 +72,6 @@ const db = mysql.createConnection({
 ```bash
 node server.js
 ```
+## 📸 Form Preview
+
+![Form Preview](form.png)
