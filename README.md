@@ -36,12 +36,14 @@ contact-form/
 ```bash
 git clone https://github.com/DhruvShah0612/database_sql.git
 cd database_sql
+```
 
-2. Install Node.js dependencies
-
+### 2. Install Node.js dependencies
+```bash
 npm install
+```
 
-3. MySQL Database Setup
+### 3. MySQL Database Setup
 Login to MySQL and run:
 
 CREATE DATABASE demo_db;
@@ -53,7 +55,7 @@ CREATE TABLE contacts (
   email VARCHAR(100)
 );
 
-4. Configure db.js
+###4. Configure db.js
 Edit db.js and update with your MySQL credentials:
 
 const db = mysql.createConnection({
@@ -63,6 +65,8 @@ const db = mysql.createConnection({
   database: "demo_db"
 });
 
-5. Run the App
+###5. Run the App
+```bash
 node server.js
+```
 
