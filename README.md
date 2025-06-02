@@ -18,14 +18,14 @@ Access the app at:
 ---
 
 ## 📁 Project Structure
-
+```
 contact-form/
 ├── public/
 │ └── index.html # Frontend form
 ├── server.js # Node.js backend
 ├── db.js # MySQL config
 ├── package.json # Node dependencies
-
+```
 
 ---
 
