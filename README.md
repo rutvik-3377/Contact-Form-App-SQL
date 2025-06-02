@@ -44,6 +44,7 @@ npm install
 ```
 
 ### 3. MySQL Database Setup
+```
 Login to MySQL and run:
 
 CREATE DATABASE demo_db;
@@ -54,8 +55,9 @@ CREATE TABLE contacts (
   name VARCHAR(100),
   email VARCHAR(100)
 );
-
+```
 ###4. Configure db.js
+```
 Edit db.js and update with your MySQL credentials:
 
 const db = mysql.createConnection({
@@ -64,9 +66,9 @@ const db = mysql.createConnection({
   password: "your_password", // Set your DB password
   database: "demo_db"
 });
+```
 
 ###5. Run the App
 ```bash
 node server.js
 ```
-
