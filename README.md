@@ -107,3 +107,39 @@ pm2 startup
 ## 📸 Form Preview
 
 ![Form Preview](form.png)
+
+### 7. View Stored Form Data
+
+#### Use the Database
+``` sql
+USE demo_db;
+```
+
+#### List Tables
+``` sql
+SHOW TABLES;
+```
+
+#### You should see:
+``` sql
++---------------------+
+| Tables_in_demo_db   |
++---------------------+
+| contacts            |
++---------------------+
+```
+#### View All Stored Data
+``` sql
+SELECT * FROM contacts;
+```
+
+#### Sample output:
+``` sql
++----+------------+---------------------+
+| id | name       | email               |
++----+------------+---------------------+
+|  1 | Alice Doe  | alice@example.com   |
+|  2 | Bob Smith  | bob@example.com     |
++----+------------+---------------------+
+```
+
