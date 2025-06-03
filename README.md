@@ -2,8 +2,8 @@
 
 A simple contact form web application with:
 
-- ✅ Frontend: HTML, CSS, JS
-- ✅ Backend: Node.js (Express) + PHP (optional)
+- ✅ Frontend: HTML, CSS, JS  
+- ✅ Backend: Node.js (Express) + PHP (optional)  
 - ✅ Database: MySQL
 
 Submitted form data is stored securely in a MySQL database.
@@ -13,17 +13,17 @@ Submitted form data is stored securely in a MySQL database.
 ## 🌐 Live Preview
 
 Access the app at:  
-**http://13.204.45.180:4000**
+**http://<YOUR_INSTANCE_PUBLIC_IP>:4000**
 
 ---
 
 ## 📁 Project Structure
-```
+```bash
 contact-form/
 ├── public/
 │ └── index.html # Frontend form
 ├── server.js # Node.js backend
-├── db.js # MySQL config
+├── db.js # MySQL connection config (if modularized)
 ├── package.json # Node dependencies
 ```
 
@@ -31,21 +31,28 @@ contact-form/
 
 ## 🛠️ Installation
 
-### 1. Clone the repo
+### 1. Clone the Repo
 
 ```bash
 git clone https://github.com/DhruvShah0612/database_sql.git
 cd database_sql
 ```
 
-### 2. Install Node.js dependencies
-```bash
-npm install
+### 3. Install Required Packages
+```
+sudo apt update
+sudo apt install nodejs npm mysql-server -y
+npm init -y
+npm install express mysql2
 ```
 
-### 3. MySQL Database Setup
-```
-Login to MySQL and run:
+### 4. MySQL Database Setup
+``` bash
+Log in to MySQL:
+
+sudo mysql
+
+Then execute:
 
 CREATE DATABASE demo_db;
 USE demo_db;
@@ -56,22 +63,20 @@ CREATE TABLE contacts (
   email VARCHAR(100)
 );
 ```
-### 4. Configure db.js
-```
-Edit db.js and update with your MySQL credentials:
 
-const db = mysql.createConnection({
-  host: "localhost",
-  user: "root",               // Change if using another user
-  password: "your_password", // Set your DB password
-  database: "demo_db"
-});
-```
-
-### 5. Run the App
+### 5. Start the App
 ```bash
 node server.js
 ```
+
+### 6. Run the App with PM2 (Production)
+```bash
+sudo npm install -g pm2
+pm2 start server.js --name contact-form
+pm2 save
+pm2 startup
+```
+
 ## 📸 Form Preview
 
 ![Form Preview](form.png)
