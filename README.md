@@ -47,13 +47,13 @@ npm install express mysql2
 ```
 
 ### 3. MySQL Database Setup
+#### Log in to MySQL:
 ``` bash
-Log in to MySQL:
-
 sudo mysql
+```
 
-Then execute:
-
+#### Then execute:
+``` bash
 CREATE DATABASE demo_db;
 USE demo_db;
 
@@ -64,11 +64,11 @@ CREATE TABLE contacts (
 );
 ```
 ### 4. Create a New MySQL User (Recommended for Security)
-## Log in to MySQL as root:
+#### Log in to MySQL as root:
 ```bash
 sudo mysql -u root -p
 ```
-## Then run:
+#### Then run:
 ```
 -- Create user
 CREATE USER 'nodeuser'@'localhost' IDENTIFIED BY 'your_password';
@@ -81,7 +81,7 @@ FLUSH PRIVILEGES;
 
 EXIT;
 ```
-## Update your db.js file:
+## Update your server.js file:
 ```
 const db = mysql.createConnection({
   host: 'localhost',
