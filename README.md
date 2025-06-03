@@ -39,7 +39,7 @@ cd database_sql
 ```
 
 ### 2. Install Required Packages
-```
+```bash
 sudo apt update
 sudo apt install nodejs npm mysql-server -y
 npm init -y
@@ -48,12 +48,12 @@ npm install express mysql2
 
 ### 3. MySQL Database Setup
 #### Log in to MySQL:
-``` bash
+```sql
 sudo mysql
 ```
 
 #### Then execute:
-``` bash
+```sql
 CREATE DATABASE demo_db;
 USE demo_db;
 
@@ -65,11 +65,11 @@ CREATE TABLE contacts (
 ```
 ### 4. Create a New MySQL User (Recommended for Security)
 #### Log in to MySQL as root:
-```bash
+```sql
 sudo mysql -u root -p
 ```
 #### Then run:
-```
+```sql
 -- Create user
 CREATE USER 'nodeuser'@'localhost' IDENTIFIED BY 'your_password';
 
@@ -82,7 +82,7 @@ FLUSH PRIVILEGES;
 EXIT;
 ```
 ## Update your server.js file:
-```
+```js
 const db = mysql.createConnection({
   host: 'localhost',
   user: 'nodeuser',
@@ -92,7 +92,7 @@ const db = mysql.createConnection({
 ```
 
 ### 5. Start the App
-```bash
+```js
 node server.js
 ```
 
@@ -111,17 +111,17 @@ pm2 startup
 ### 7. View Stored Form Data
 
 #### Use the Database
-``` sql
+```sql
 USE demo_db;
 ```
 
 #### List Tables
-``` sql
+```sql
 SHOW TABLES;
 ```
 
 #### You should see:
-``` sql
+```sql
 +---------------------+
 | Tables_in_demo_db   |
 +---------------------+
@@ -129,12 +129,12 @@ SHOW TABLES;
 +---------------------+
 ```
 #### View All Stored Data
-``` sql
+```sql
 SELECT * FROM contacts;
 ```
 
 #### Sample output:
-``` sql
+```sql
 +----+------------+---------------------+
 | id | name       | email               |
 +----+------------+---------------------+
@@ -142,4 +142,3 @@ SELECT * FROM contacts;
 |  2 | Bob Smith  | bob@example.com     |
 +----+------------+---------------------+
 ```
-
