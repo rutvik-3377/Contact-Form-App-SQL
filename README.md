@@ -38,7 +38,7 @@ git clone https://github.com/DhruvShah0612/database_sql.git
 cd database_sql
 ```
 
-### 3. Install Required Packages
+### 2. Install Required Packages
 ```
 sudo apt update
 sudo apt install nodejs npm mysql-server -y
@@ -46,7 +46,7 @@ npm init -y
 npm install express mysql2
 ```
 
-### 4. MySQL Database Setup
+### 3. MySQL Database Setup
 ``` bash
 Log in to MySQL:
 
@@ -62,6 +62,33 @@ CREATE TABLE contacts (
   name VARCHAR(100),
   email VARCHAR(100)
 );
+```
+### 4. Create a New MySQL User (Recommended for Security)
+## Log in to MySQL as root:
+```bash
+sudo mysql -u root -p
+```
+## Then run:
+```
+-- Create user
+CREATE USER 'nodeuser'@'localhost' IDENTIFIED BY 'your_password';
+
+-- Grant privileges on your database
+GRANT ALL PRIVILEGES ON demo_db.* TO 'nodeuser'@'localhost';
+
+-- Apply changes
+FLUSH PRIVILEGES;
+
+EXIT;
+```
+## Update your db.js file:
+```
+const db = mysql.createConnection({
+  host: 'localhost',
+  user: 'nodeuser',
+  password: 'your_password',
+  database: 'demo_db'
+});
 ```
 
 ### 5. Start the App
