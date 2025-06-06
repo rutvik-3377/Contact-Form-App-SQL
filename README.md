@@ -142,3 +142,24 @@ SELECT * FROM contacts;
 |  2 | Bob Smith  | bob@example.com     |
 +----+------------+---------------------+
 ```
+________________________________________________________________________________________________________
+
+**Steps For Pipeline :**
+
+copy pipeline from @by_jenkins_pipeline file 
+```
+cd /var/lib/jenkins/workspace/New/database_sql/node server.js
+```
+mysql connected 
+![image](https://github.com/user-attachments/assets/e8e5ff52-cc9d-49be-af04-d75db2ccac73)
+
+
+after add commands :
+
+``` base
+     pm2 list
+     pm2 start server.js --name contact-form
+     
+     pm2 save
+     pm2 startup system
+ ```
