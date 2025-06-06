@@ -152,6 +152,10 @@ copy pipeline from @by_jenkins_pipeline file
 https://github.com/rutvik-3377/database_sql/blob/9010b250f515eee2fd839883b5705bd09efb10f5/by_jenkins_pipeline.groovy
 
 ```
+ADD PIPELINE IN JENKINS :
+
+CONNECTED MYSQL BY : 
+
 ```
 cd /var/lib/jenkins/workspace/New/database_sql/node server.js
 ```
