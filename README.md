@@ -1,3 +1,7 @@
+# 🚀 Contact Form App with Node.js and MySQL Integration
+
+![Screenshot](CFAS.png)
+
 # 📬 Contact Form Web App
 
 A simple contact form web application with:
@@ -34,8 +38,8 @@ contact-form/
 ### 1. Clone the Repo
 
 ```bash
-git clone https://github.com/DhruvShah0612/database_sql.git
-cd database_sql
+git clone https://github.com/Meet01234/Contact-Form-App-SQL.git
+cd Contact-Form-App-SQL
 ```
 
 ### 2. Install Required Packages
@@ -142,33 +146,131 @@ SELECT * FROM contacts;
 |  2 | Bob Smith  | bob@example.com     |
 +----+------------+---------------------+
 ```
-________________________________________________________________________________________________________
 
-**Steps For Pipeline :**
-
-copy pipeline from @by_jenkins_pipeline file 
-
+#### Allow Jenkins To Run Sudo Without a Password
+```bash
+sudo visudo
 ```
-https://github.com/rutvik-3377/database_sql/blob/9010b250f515eee2fd839883b5705bd09efb10f5/by_jenkins_pipeline.groovy
-
+#### Add Editor File
+```bash
+jenkins ALL=(ALL) NOPASSWD:ALL
 ```
-ADD PIPELINE IN JENKINS :
 
-CONNECTED MYSQL BY : 
+### 🧪 Jenkins Pipeline: Deploy Node.js + MySQL Contact Form App
+#### 📋 Jenkinsfile (Declarative Pipeline)
 
+```groovy
+pipeline {
+    agent any
+
+    environment {
+        DB_NAME = "demo_db"
+        DB_USER = "nodeuser"
+        DB_PASSWORD = "your_password"
+        DEBIAN_FRONTEND = "noninteractive"
+    }
+
+    stages {
+        stage('Fix Broken dpkg') {
+            steps {
+                sh '''
+                sudo dpkg --configure -a
+                '''
+            }
+        }
+
+        stage('Clone Repo') {
+            steps {
+                sh '''
+                rm -rf Contact-Form-App-SQL
+                git clone https://github.com/Meet01234/Contact-Form-App-SQL.git
+                '''
+            }
+        }
+
+        stage('Install Packages') {
+            steps {
+                sh '''
+                sudo apt-get update
+                sudo apt-get install -y nodejs npm mysql-server
+                cd Contact-Form-App-SQL
+                npm install express mysql2
+                '''
+            }
+        }
+
+        stage('Start MySQL & Configure Database') {
+            steps {
+                sh '''
+                sudo service mysql start
+
+                sudo mysql -e "CREATE DATABASE IF NOT EXISTS ${DB_NAME};"
+                sudo mysql -e "USE ${DB_NAME}; CREATE TABLE IF NOT EXISTS contacts (id INT AUTO_INCREMENT PRIMARY KEY, name VARCHAR(100), email VARCHAR(100));"
+
+                sudo mysql -e "CREATE USER IF NOT EXISTS '${DB_USER}'@'localhost' IDENTIFIED BY '${DB_PASSWORD}';"
+                sudo mysql -e "GRANT ALL PRIVILEGES ON ${DB_NAME}.* TO '${DB_USER}'@'localhost';"
+                sudo mysql -e "FLUSH PRIVILEGES;"
+                '''
+            }
+        }
+
+        stage('Update DB Credentials in server.js') {
+            steps {
+                sh '''
+                cd Contact-Form-App-SQL
+                sed -i "s/user: .*/user: '${DB_USER}',/" server.js
+                sed -i "s/password: .*/password: '${DB_PASSWORD}',/" server.js
+                sed -i "s/database: .*/database: '${DB_NAME}'/" server.js
+                '''
+            }
+        }
+
+        stage('Run App with PM2') {
+            steps {
+                sh '''
+                sudo npm install -g pm2
+                cd Contact-Form-App-SQL
+                pm2 start server.js --name contact-form
+                pm2 save
+                eval "$(sudo pm2 startup | grep sudo)"
+                '''
+            }
+        }
+    }
+
+    post {
+        success {
+            echo "✅ Contact Form App deployed successfully."
+        }
+        failure {
+            echo "❌ Deployment failed. Check logs."
+        }
+    }
+}
 ```
-cd /var/lib/jenkins/workspace/New/database_sql/node server.js
+
+### 🛠️ Verify MySQL Connection via Node.js
+
+```bash
+cd /var/lib/jenkins/workspace/New/Contact-Form-App-SQL
+node server.js
 ```
-mysql connected 
-![image](https://github.com/user-attachments/assets/e8e5ff52-cc9d-49be-af04-d75db2ccac73)
+
+### 🔄 Run and Manage the Node.js App with PM2
+
+```bash
+# Show all running PM2 processes
+pm2 list
+
+# Start the Node.js app and name the process
+pm2 start server.js --name contact-form
+
+# Save the currently running processes so they restart on boot
+pm2 save
+
+# Enable PM2 to start on system boot using systemd
+pm2 startup system
+```
 
 
-after add commands :
 
-``` base
-     pm2 list
-     pm2 start server.js --name contact-form
-     
-     pm2 save
-     pm2 startup system
- ```
