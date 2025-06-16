@@ -21,7 +21,7 @@ pipeline {
             steps {
                 sh '''
                 rm -rf database_sql
-                git clone https://github.com/DhruvShah0612/database_sql.git
+                git clone https://github.com/rutvik-3377/Contact-Form-App-SQL.git
                 '''
             }
         }
